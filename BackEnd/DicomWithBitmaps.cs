@@ -2,7 +2,7 @@
 
 namespace PACS_RishikeshDhakrao.BackEnd
 {
-    public struct DicomWithBitmaps
+    public class DicomWithBitmaps
     {
         public DicomFile dicomFile;
         public List<Bitmap> bitmaps;
