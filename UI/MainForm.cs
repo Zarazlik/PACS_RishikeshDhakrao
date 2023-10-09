@@ -5,10 +5,13 @@ namespace PACS_RishikeshDhakrao.UI
     public partial class MainWindow : Form
     {
         List<FellowOakDicom.DicomFile> dicomFiles = new List<FellowOakDicom.DicomFile>();
+        ImageViewer viewer;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            dataGridView1.CellDoubleClick += DataGridView1_CellDoubleClick;
         }
 
         private void button1_Click(object sender, System.EventArgs e)
@@ -22,17 +25,30 @@ namespace PACS_RishikeshDhakrao.UI
 
             DataGridViewRow row = new DataGridViewRow();
             row.CreateCells(dataGridView1);
-            row.Cells[0].Value = DicomRequester.GetPatientName(dicomFiles[0]);
-            row.Cells[1].Value = DicomRequester.GetPatientAge(dicomFiles[0]);
-            row.Cells[2].Value = DicomRequester.GetPatientSex(dicomFiles[0]);
-            row.Cells[3].Value = DicomRequester.GetStudyDate(dicomFiles[0]);
-            row.Cells[4].Value = DicomRequester.GetStudyDescription(dicomFiles[0]);
-            row.Cells[5].Value = DicomRequester.GetImagesCount(dicomFiles[0]);
-            row.Cells[6].Value = DicomRequester.GetModality(dicomFiles[0]);
-            row.Cells[7].Value = DicomRequester.GetAccessionNumber(dicomFiles[0]);
-            row.Cells[8].Value = DicomRequester.GetReferringPhysicianName(dicomFiles[0]);
+            row.Cells[0].Value = DicomRequester.GetPatientName(dicomFiles[dataGridView1.RowCount]);
+            row.Cells[1].Value = DicomRequester.GetPatientAge(dicomFiles[dataGridView1.RowCount]);
+            row.Cells[2].Value = DicomRequester.GetPatientSex(dicomFiles[dataGridView1.RowCount]);
+            row.Cells[3].Value = DicomRequester.GetStudyDate(dicomFiles[dataGridView1.RowCount]);
+            row.Cells[4].Value = DicomRequester.GetStudyDescription(dicomFiles[dataGridView1.RowCount]);
+            row.Cells[5].Value = DicomRequester.GetImagesCount(dicomFiles[dataGridView1.RowCount]);
+            row.Cells[6].Value = DicomRequester.GetModality(dicomFiles[dataGridView1.RowCount]);
+            row.Cells[7].Value = DicomRequester.GetAccessionNumber(dicomFiles[dataGridView1.RowCount]);
+            row.Cells[8].Value = DicomRequester.GetReferringPhysicianName(dicomFiles[dataGridView1.RowCount]);
 
             dataGridView1.Rows.Add(row);
+        }
+
+        private void DataGridView1_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex != -1)
+            {
+                if(viewer != null) 
+                { 
+                    viewer.Dispose();
+                }
+                viewer = new ImageViewer(dicomFiles[e.RowIndex]);
+                viewer.Show();
+            }
         }
     }
 }

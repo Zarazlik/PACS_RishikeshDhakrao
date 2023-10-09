@@ -31,6 +31,7 @@
             panel1 = new Panel();
             pictureBoxMain = new PictureBox();
             flowLayoutPanel1 = new FlowLayoutPanel();
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxMain).BeginInit();
             SuspendLayout();
@@ -38,6 +39,7 @@
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.AutoScroll = true;
             panel1.BackColor = SystemColors.ControlDarkDark;
             panel1.Controls.Add(pictureBoxMain);
             panel1.Location = new Point(12, 12);
@@ -55,20 +57,26 @@
             // 
             // flowLayoutPanel1
             // 
+            flowLayoutPanel1.AutoScroll = true;
             flowLayoutPanel1.Dock = DockStyle.Right;
             flowLayoutPanel1.Location = new Point(600, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(200, 450);
             flowLayoutPanel1.TabIndex = 1;
             // 
-            // ImageViwer
+            // backgroundWorker1
+            // 
+            backgroundWorker1.DoWork += backgroundWorker1_DoWork;
+            backgroundWorker1.RunWorkerCompleted += BackgroundWorker1_RunWorkerCompleted;
+            // 
+            // ImageViewer
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(panel1);
-            Name = "ImageViwer";
+            Name = "ImageViewer";
             Text = "ImageViwer";
             Load += ImageViewer_Load;
             panel1.ResumeLayout(false);
@@ -81,5 +89,6 @@
         private Panel panel1;
         private PictureBox pictureBoxMain;
         private FlowLayoutPanel flowLayoutPanel1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

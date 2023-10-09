@@ -30,6 +30,7 @@
         {
             btn_OpenFile = new Button();
             dataGridView1 = new DataGridView();
+            openFileDialog1 = new OpenFileDialog();
             PatientName = new DataGridViewTextBoxColumn();
             Age = new DataGridViewTextBoxColumn();
             Sex = new DataGridViewTextBoxColumn();
@@ -39,7 +40,6 @@
             Modality = new DataGridViewTextBoxColumn();
             AccessionNumber = new DataGridViewTextBoxColumn();
             ReferingPhsyician = new DataGridViewTextBoxColumn();
-            openFileDialog1 = new OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -68,6 +68,12 @@
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(821, 392);
             dataGridView1.TabIndex = 4;
+            // 
+            // openFileDialog1
+            // 
+            openFileDialog1.FileName = "openFileDialog1";
+            openFileDialog1.Filter = "DICOM file (*.dcm)|*.dcm";
+            openFileDialog1.FileOk += openFileDialog1_FileOk;
             // 
             // PatientName
             // 
@@ -135,12 +141,6 @@
             ReferingPhsyician.Name = "ReferingPhsyician";
             ReferingPhsyician.ReadOnly = true;
             // 
-            // openFileDialog1
-            // 
-            openFileDialog1.FileName = "openFileDialog1";
-            openFileDialog1.Filter = "DICOM file (*.dcm)|*.dcm";
-            openFileDialog1.FileOk += openFileDialog1_FileOk;
-            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -160,6 +160,7 @@
 
         private Button btn_OpenFile;
         private DataGridView dataGridView1;
+        private OpenFileDialog openFileDialog1;
         private DataGridViewTextBoxColumn PatientName;
         private DataGridViewTextBoxColumn Age;
         private DataGridViewTextBoxColumn Sex;
@@ -169,7 +170,6 @@
         private DataGridViewTextBoxColumn Modality;
         private DataGridViewTextBoxColumn AccessionNumber;
         private DataGridViewTextBoxColumn ReferingPhsyician;
-        private OpenFileDialog openFileDialog1;
     }
 }
 
