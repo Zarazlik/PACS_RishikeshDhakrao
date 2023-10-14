@@ -30,8 +30,8 @@
         {
             panel1 = new Panel();
             pictureBoxMain = new PictureBox();
-            flowLayoutPanel1 = new FlowLayoutPanel();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            myTrackBar1 = new RMDdev.MyTrackBar();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxMain).BeginInit();
             SuspendLayout();
@@ -44,37 +44,45 @@
             panel1.Controls.Add(pictureBoxMain);
             panel1.Location = new Point(12, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(570, 426);
+            panel1.Size = new Size(776, 464);
             panel1.TabIndex = 0;
             // 
             // pictureBoxMain
             // 
             pictureBoxMain.Location = new Point(0, 0);
             pictureBoxMain.Name = "pictureBoxMain";
-            pictureBoxMain.Size = new Size(570, 426);
+            pictureBoxMain.Size = new Size(350, 259);
             pictureBoxMain.TabIndex = 0;
             pictureBoxMain.TabStop = false;
-            // 
-            // flowLayoutPanel1
-            // 
-            flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.Dock = DockStyle.Right;
-            flowLayoutPanel1.Location = new Point(600, 0);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(200, 450);
-            flowLayoutPanel1.TabIndex = 1;
             // 
             // backgroundWorker1
             // 
             backgroundWorker1.DoWork += backgroundWorker1_DoWork;
             backgroundWorker1.RunWorkerCompleted += BackgroundWorker1_RunWorkerCompleted;
+            backgroundWorker1.WorkerSupportsCancellation = true;
+            // 
+            // myTrackBar1
+            // 
+            myTrackBar1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            myTrackBar1.BackColor = SystemColors.Control;
+            myTrackBar1.Font = new Font("Bahnschrift", 18F, FontStyle.Regular, GraphicsUnit.Pixel);
+            myTrackBar1.Header = null;
+            myTrackBar1.Location = new Point(12, 483);
+            myTrackBar1.Margin = new Padding(4);
+            myTrackBar1.Max = 10;
+            myTrackBar1.Min = 1;
+            myTrackBar1.Name = "myTrackBar1";
+            myTrackBar1.Size = new Size(775, 39);
+            myTrackBar1.TabIndex = 1;
+            myTrackBar1.Text2 = "";
+            myTrackBar1.Value = 1;
             // 
             // ImageViewer
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(flowLayoutPanel1);
+            ClientSize = new Size(800, 535);
+            Controls.Add(myTrackBar1);
             Controls.Add(panel1);
             Name = "ImageViewer";
             Text = "ImageViwer";
@@ -88,7 +96,7 @@
 
         private Panel panel1;
         private PictureBox pictureBoxMain;
-        private FlowLayoutPanel flowLayoutPanel1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private RMDdev.MyTrackBar myTrackBar1;
     }
 }

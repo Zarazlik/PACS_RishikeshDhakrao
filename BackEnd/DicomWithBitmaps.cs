@@ -17,7 +17,7 @@ namespace PACS_RishikeshDhakrao.BackEnd
 
         void OpenBitmapImage()
         {
-            bitmaps.Add(DicomRequester.OpenImage(dicomFile));
+            bitmaps.Add(DicomRequester.OpenImage(dicomFile, 0));
         }
     }
 }

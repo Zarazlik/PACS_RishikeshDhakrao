@@ -46,7 +46,7 @@ namespace PACS_RishikeshDhakrao.UI
                 { 
                     viewer.Dispose();
                 }
-                viewer = new ImageViewer(dicomFiles[e.RowIndex]);
+                viewer = new ImageViewer(dicomFiles[e.RowIndex], Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[5].Value));
                 viewer.Show();
             }
         }

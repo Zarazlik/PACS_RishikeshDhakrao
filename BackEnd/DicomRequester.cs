@@ -1,5 +1,6 @@
 ﻿using FellowOakDicom;
 using FellowOakDicom.Imaging;
+using System.ComponentModel;
 using System.Security.AccessControl;
 
 namespace PACS_RishikeshDhakrao.BackEnd
@@ -11,11 +12,11 @@ namespace PACS_RishikeshDhakrao.BackEnd
             return DicomFile.Open(path);
         }
 
-        public static Bitmap OpenImage(DicomFile dicomFile)
+        public static Bitmap OpenImage(DicomFile dicomFile, int imageIndex)
         {
             DicomImage dicomImage = new DicomImage(dicomFile.Dataset);
 
-            IImage image = dicomImage.RenderImage();
+            IImage image = dicomImage.RenderImage(imageIndex);
 
             Bitmap bitmap = new Bitmap(dicomImage.Width, dicomImage.Height);
 
@@ -24,6 +25,37 @@ namespace PACS_RishikeshDhakrao.BackEnd
                 for (int y = 0; y < dicomImage.Height; y++)
                 {
                     bitmap.SetPixel(x, y, FellowOakColorToColor(image.GetPixel(x, y)));
+                }
+            }
+
+            return bitmap;
+
+            Color FellowOakColorToColor(Color32 color32)
+            {
+                return Color.FromArgb(color32.A, color32.R, color32.G, color32.B);
+            }
+        }
+
+        public static Bitmap OpenImageAsync(DicomFile dicomFile, int imageIndex, BackgroundWorker backgroundWorker, DoWorkEventArgs e)
+        {
+            DicomImage dicomImage = new DicomImage(dicomFile.Dataset);
+
+            IImage image = dicomImage.RenderImage(imageIndex);
+
+            Bitmap bitmap = new Bitmap(dicomImage.Width, dicomImage.Height);
+
+            for (int x = 0; x < dicomImage.Width; x++)
+            {
+                for (int y = 0; y < dicomImage.Height; y++)
+                {
+                    if (backgroundWorker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                    }
+                    else
+                    {
+                        bitmap.SetPixel(x, y, FellowOakColorToColor(image.GetPixel(x, y)));
+                    }
                 }
             }
 

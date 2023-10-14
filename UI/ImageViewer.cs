@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,38 +17,60 @@ namespace PACS_RishikeshDhakrao.UI
     public partial class ImageViewer : Form
     {
         DicomFile dicomFile;
-        public List<Bitmap> bitmaps = new List<Bitmap>();
+        public Bitmap bitmap;
+        int ImageCount;
 
-        public ImageViewer(DicomFile dicomFile)
+        public ImageViewer(DicomFile dicomFile, int imageCount)
         {
+            
+
             this.dicomFile = dicomFile;
+            this.ImageCount = imageCount;
 
             InitializeComponent();
-
-
         }
 
         private void ImageViewer_Load(object sender, EventArgs e)
         {
-            LoadImage();
+            myTrackBar1.Max = ImageCount;
+            myTrackBar1.Text2 = "/ " + ImageCount.ToString();
+            myTrackBar1.Value = 1;
 
+            myTrackBar1.ValueСhanged += MyTrackBar1_ValueСhanged;
+
+            LoadImage(0);
         }
 
-
-        void LoadImage()
+        private void MyTrackBar1_ValueСhanged(object? sender, EventArgs e)
         {
-            backgroundWorker1.RunWorkerAsync();
+            LoadImage(myTrackBar1.Value);
+        }
+
+        void LoadImage(int NuberOfImage)
+        {
+            if (!backgroundWorker1.IsBusy)
+            {
+                backgroundWorker1.RunWorkerAsync(NuberOfImage);
+            }
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            bitmaps.Add(DicomRequester.OpenImage(dicomFile));
+            backgroundWorker1 = sender as BackgroundWorker;
+            bitmap = DicomRequester.OpenImageAsync(dicomFile, (int)e.Argument, backgroundWorker1, e);
         }
 
         private void BackgroundWorker1_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
         {
-            pictureBoxMain.Size = new Size(bitmaps[0].Width, bitmaps[0].Height);
-            pictureBoxMain.Image = bitmaps[0];
+            if (e.Cancelled)
+            {
+                backgroundWorker1.RunWorkerAsync(myTrackBar1.Value - 1);
+            }
+            else
+            {
+                pictureBoxMain.Size = new Size(bitmap.Width, bitmap.Height);
+                pictureBoxMain.Image = bitmap;
+            }
         }
     }
 }
