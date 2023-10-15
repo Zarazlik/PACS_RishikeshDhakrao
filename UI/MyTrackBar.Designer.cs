@@ -58,7 +58,7 @@
             // 
             trackBar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             trackBar.Cursor = Cursors.Hand;
-            trackBar.LargeChange = 1;
+            trackBar.LargeChange = 10;
             trackBar.Location = new Point(4, 4);
             trackBar.Margin = new Padding(4);
             trackBar.Maximum = 255;

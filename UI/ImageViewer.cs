@@ -20,10 +20,10 @@ namespace PACS_RishikeshDhakrao.UI
         public Bitmap bitmap;
         int ImageCount;
 
+        float zoomFactor = 1.0f;
+
         public ImageViewer(DicomFile dicomFile, int imageCount)
         {
-            
-
             this.dicomFile = dicomFile;
             this.ImageCount = imageCount;
 
@@ -45,6 +45,8 @@ namespace PACS_RishikeshDhakrao.UI
         {
             LoadImage(myTrackBar1.Value);
         }
+
+        #region Image loading
 
         void LoadImage(int NuberOfImage)
         {
@@ -72,5 +74,55 @@ namespace PACS_RishikeshDhakrao.UI
                 pictureBoxMain.Image = bitmap;
             }
         }
+
+        #endregion
+
+        #region Tools
+
+        #region Zoom
+
+        void PictureBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if ((ModifierKeys & Keys.Control) == Keys.Control)
+            {
+                if (e.Delta > 0)
+                {
+                    zoomFactor += 0.05f;
+                    ChangePictureBoxZoom();
+                }
+                else
+                {
+                    zoomFactor -= 0.05f;
+                    ChangePictureBoxZoom();
+                }
+            }
+
+            void ChangePictureBoxZoom()
+            {
+                // Пересчитываем размер PictureBox
+                pictureBoxMain.Size = new Size((int)(bitmap.Width * zoomFactor), (int)(bitmap.Height * zoomFactor));
+
+                /*
+                // Вычисляем положение для прокрутки
+                int scrollX = (int)((e.X - pictureBoxMain.Location.X) * 0.05f);
+                int scrollY = (int)((e.Y - pictureBoxMain.Location.Y) * 0.05f);
+
+                // Прокручиваем Panel, чтобы изображение было видно
+                panel1.AutoScrollPosition = new Point(scrollX, scrollY);
+                */
+            }
+        }
+
+        private void Panel1_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if ((ModifierKeys & Keys.Control) == Keys.Control)
+            {
+                return;
+            }
+        }
+
+        #endregion
+
+        #endregion
     }
 }

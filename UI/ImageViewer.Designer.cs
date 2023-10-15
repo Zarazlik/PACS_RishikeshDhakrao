@@ -1,4 +1,6 @@
-﻿namespace PACS_RishikeshDhakrao.UI
+﻿using System.Windows.Forms;
+
+namespace PACS_RishikeshDhakrao.UI
 {
     partial class ImageViewer
     {
@@ -46,20 +48,23 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(776, 464);
             panel1.TabIndex = 0;
+            panel1.MouseWheel += Panel1_MouseWheel;
             // 
             // pictureBoxMain
             // 
             pictureBoxMain.Location = new Point(0, 0);
             pictureBoxMain.Name = "pictureBoxMain";
             pictureBoxMain.Size = new Size(350, 259);
+            pictureBoxMain.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxMain.TabIndex = 0;
             pictureBoxMain.TabStop = false;
+            pictureBoxMain.MouseWheel += PictureBox_MouseWheel;
             // 
             // backgroundWorker1
             // 
+            backgroundWorker1.WorkerSupportsCancellation = true;
             backgroundWorker1.DoWork += backgroundWorker1_DoWork;
             backgroundWorker1.RunWorkerCompleted += BackgroundWorker1_RunWorkerCompleted;
-            backgroundWorker1.WorkerSupportsCancellation = true;
             // 
             // myTrackBar1
             // 
