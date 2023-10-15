@@ -48,17 +48,20 @@ namespace PACS_RishikeshDhakrao.UI
             panel1.Name = "panel1";
             panel1.Size = new Size(776, 464);
             panel1.TabIndex = 0;
+            panel1.MouseDown += PictureBox_MouseDown;
+            panel1.MouseMove += PictureBox_MouseMove;
+            panel1.MouseUp += PictureBox_MouseUp;
             panel1.MouseWheel += Panel1_MouseWheel;
             // 
             // pictureBoxMain
             // 
+            pictureBoxMain.Enabled = false;
             pictureBoxMain.Location = new Point(0, 0);
             pictureBoxMain.Name = "pictureBoxMain";
             pictureBoxMain.Size = new Size(350, 259);
             pictureBoxMain.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBoxMain.TabIndex = 0;
             pictureBoxMain.TabStop = false;
-            pictureBoxMain.MouseWheel += PictureBox_MouseWheel;
             // 
             // backgroundWorker1
             // 

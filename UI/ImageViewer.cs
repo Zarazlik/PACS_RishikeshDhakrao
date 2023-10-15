@@ -22,6 +22,10 @@ namespace PACS_RishikeshDhakrao.UI
 
         float zoomFactor = 1.0f;
 
+        private Point StartMousePosition;
+        private Point initialAutoScrollPosition;
+        private bool MouseIsDownLeft;
+
         public ImageViewer(DicomFile dicomFile, int imageCount)
         {
             this.dicomFile = dicomFile;
@@ -79,9 +83,43 @@ namespace PACS_RishikeshDhakrao.UI
 
         #region Tools
 
+        #region Moving around the image with the mouse
+        private void PictureBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                StartMousePosition = e.Location;
+                MouseIsDownLeft = true;
+            }
+        }
+
+        private void PictureBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (panel1.Capture)
+            {
+                if (MouseIsDownLeft)
+                {
+                    if (e.Location != StartMousePosition)
+                    {
+                        panel1.AutoScrollPosition = new Point(Math.Abs(panel1.AutoScrollPosition.X + (e.Location.X - StartMousePosition.X)), Math.Abs(panel1.AutoScrollPosition.Y + (e.Location.Y - StartMousePosition.Y)));
+                        StartMousePosition = e.Location;
+                    }
+                }
+            }
+        }
+
+        private void PictureBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                MouseIsDownLeft = false;
+            }
+        }
+        #endregion
+
         #region Zoom
 
-        void PictureBox_MouseWheel(object sender, MouseEventArgs e)
+        private void Panel1_MouseWheel(object sender, MouseEventArgs e)
         {
             if ((ModifierKeys & Keys.Control) == Keys.Control)
             {
@@ -95,11 +133,12 @@ namespace PACS_RishikeshDhakrao.UI
                     zoomFactor -= 0.05f;
                     ChangePictureBoxZoom();
                 }
+
+                return;
             }
 
             void ChangePictureBoxZoom()
             {
-                // Пересчитываем размер PictureBox
                 pictureBoxMain.Size = new Size((int)(bitmap.Width * zoomFactor), (int)(bitmap.Height * zoomFactor));
 
                 /*
@@ -111,14 +150,7 @@ namespace PACS_RishikeshDhakrao.UI
                 panel1.AutoScrollPosition = new Point(scrollX, scrollY);
                 */
             }
-        }
 
-        private void Panel1_MouseWheel(object sender, MouseEventArgs e)
-        {
-            if ((ModifierKeys & Keys.Control) == Keys.Control)
-            {
-                return;
-            }
         }
 
         #endregion
