@@ -92,9 +92,11 @@ namespace PACS_RishikeshDhakrao.UI
             ClientSize = new Size(800, 535);
             Controls.Add(myTrackBar1);
             Controls.Add(panel1);
+            KeyPreview = true;
             Name = "ImageViewer";
             Text = "ImageViwer";
             Load += ImageViewer_Load;
+            KeyUp += ImageViewer_KeyUp;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBoxMain).EndInit();
             ResumeLayout(false);

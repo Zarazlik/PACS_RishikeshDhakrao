@@ -123,6 +123,9 @@ namespace PACS_RishikeshDhakrao.UI
         {
             if ((ModifierKeys & Keys.Control) == Keys.Control)
             {
+                Point autoscrollBufer = panel1.AutoScrollPosition;
+                panel1.AutoScroll = false;
+
                 if (e.Delta > 0)
                 {
                     zoomFactor += 0.05f;
@@ -134,27 +137,26 @@ namespace PACS_RishikeshDhakrao.UI
                     ChangePictureBoxZoom();
                 }
 
-                return;
+                panel1.AutoScroll = true;
+                panel1.AutoScrollPosition = new Point(Math.Abs(autoscrollBufer.X), Math.Abs(autoscrollBufer.Y));
             }
 
             void ChangePictureBoxZoom()
             {
                 pictureBoxMain.Size = new Size((int)(bitmap.Width * zoomFactor), (int)(bitmap.Height * zoomFactor));
-
-                /*
-                // Вычисляем положение для прокрутки
-                int scrollX = (int)((e.X - pictureBoxMain.Location.X) * 0.05f);
-                int scrollY = (int)((e.Y - pictureBoxMain.Location.Y) * 0.05f);
-
-                // Прокручиваем Panel, чтобы изображение было видно
-                panel1.AutoScrollPosition = new Point(scrollX, scrollY);
-                */
             }
-
         }
 
         #endregion
 
         #endregion
+
+        private void ImageViewer_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.ControlKey)
+            {
+                panel1.AutoScroll = true;
+            }
+        }
     }
 }
