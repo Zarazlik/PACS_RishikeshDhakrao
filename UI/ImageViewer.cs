@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Contracts;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -17,8 +19,29 @@ namespace PACS_RishikeshDhakrao.UI
     public partial class ImageViewer : Form
     {
         DicomFile dicomFile;
-        public Bitmap bitmap;
         int ImageCount;
+
+        Bitmap originalBitmap;
+        public Bitmap bitmap;
+
+        ImageAttributes imageAttributes = new ImageAttributes();
+
+        float Contrast
+        {
+            get
+            {
+                return _contrast;
+            }
+            set
+            {
+                _contrast = value;
+                //brightness = 1 / (1 - value);
+                SetContrastMatrix();
+                DrawImage();
+            }
+        }
+        float _contrast = 1;
+        float brightness = 0f;
 
         double ZoomFactor
         {
@@ -75,6 +98,18 @@ namespace PACS_RishikeshDhakrao.UI
             LoadImage(myTrackBar1.Value);
         }
 
+        void DrawImage()
+        {
+            Bitmap newImage = new Bitmap(originalBitmap);
+            using (Graphics g = Graphics.FromImage(newImage))
+            {
+                g.DrawImage(newImage, new Rectangle(0, 0, newImage.Width, newImage.Height),
+                    0, 0, newImage.Width, newImage.Height, GraphicsUnit.Pixel, imageAttributes);
+            }
+
+            pictureBoxMain.Image = newImage;
+        }
+
         #region Image loading
 
         void LoadImage(int NuberOfImage)
@@ -88,7 +123,8 @@ namespace PACS_RishikeshDhakrao.UI
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             backgroundWorker1 = sender as BackgroundWorker;
-            bitmap = DicomRequester.OpenImageAsync(dicomFile, (int)e.Argument, backgroundWorker1, e);
+            originalBitmap = DicomRequester.OpenImageAsync(dicomFile, (int)e.Argument, backgroundWorker1, e);
+            bitmap = originalBitmap;
         }
 
         private void BackgroundWorker1_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
@@ -108,7 +144,7 @@ namespace PACS_RishikeshDhakrao.UI
 
         #region Tools
 
-        #region Moving around the image with the mouse
+        #region Moving image with mouse
         private void PictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -146,7 +182,7 @@ namespace PACS_RishikeshDhakrao.UI
 
         private void Panel1_MouseWheel(object sender, MouseEventArgs e)
         {
-            
+
             if ((ModifierKeys & Keys.Control) == Keys.Control)
             {
                 Point autoscrollBufer = panel1.AutoScrollPosition;
@@ -166,26 +202,47 @@ namespace PACS_RishikeshDhakrao.UI
             }
         }
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ZoomFactor = Convert.ToDouble(comboBox1.SelectedItem) / 100;
+        }
+
         void ChangePictureBoxZoom()
         {
             pictureBoxMain.Size = new Size((int)(bitmap.Width * _zoomFactor), (int)(bitmap.Height * _zoomFactor));
         }
+        #endregion
+
+        #region Contrast
+
+        void SetContrastMatrix()
+        {
+            imageAttributes.SetColorMatrix
+               (
+                    new ColorMatrix
+                       (
+                       new float[][]
+                       {
+                            new float[] {_contrast, 0, 0, 0, 0},
+                            new float[] {0, _contrast, 0, 0, 0},
+                            new float[] {0, 0, _contrast, 0, 0},
+                            new float[] {0, 0, 0, 1, 0},
+                            new float[] {brightness, brightness, brightness, 0, 1}
+                       }
+                    )
+                );
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            brightness = -((float)(trackBar1.Value - 100) / 100);
+            Contrast = (float)(trackBar1.Value) / 100;
+        }
 
         #endregion
 
         #endregion
 
-        private void ImageViewer_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.ControlKey)
-            {
-                panel1.AutoScroll = true;
-            }
-        }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ZoomFactor =  Convert.ToDouble(comboBox1.SelectedItem) / 100;
-        }
     }
 }

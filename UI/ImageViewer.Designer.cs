@@ -36,10 +36,13 @@ namespace PACS_RishikeshDhakrao.UI
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             myTrackBar1 = new RMDdev.MyTrackBar();
             panel_ToolBox = new Panel();
+            trackBar1 = new TrackBar();
+            label2 = new Label();
             label1 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBoxMain).BeginInit();
             panel_ToolBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -48,9 +51,9 @@ namespace PACS_RishikeshDhakrao.UI
             panel1.AutoScroll = true;
             panel1.BackColor = SystemColors.ControlDarkDark;
             panel1.Controls.Add(pictureBoxMain);
-            panel1.Location = new Point(12, 52);
+            panel1.Location = new Point(12, 46);
             panel1.Name = "panel1";
-            panel1.Size = new Size(776, 424);
+            panel1.Size = new Size(776, 430);
             panel1.TabIndex = 0;
             panel1.MouseDown += PictureBox_MouseDown;
             panel1.MouseMove += PictureBox_MouseMove;
@@ -71,7 +74,7 @@ namespace PACS_RishikeshDhakrao.UI
             // 
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "25", "50", "75", "100", "150", "200", "250", "300", "300", "400", "500" });
-            comboBox1.Location = new Point(57, 11);
+            comboBox1.Location = new Point(57, 5);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(44, 23);
             comboBox1.TabIndex = 0;
@@ -102,18 +105,40 @@ namespace PACS_RishikeshDhakrao.UI
             // 
             // panel_ToolBox
             // 
+            panel_ToolBox.Controls.Add(trackBar1);
+            panel_ToolBox.Controls.Add(label2);
             panel_ToolBox.Controls.Add(label1);
             panel_ToolBox.Controls.Add(comboBox1);
             panel_ToolBox.Dock = DockStyle.Top;
             panel_ToolBox.Location = new Point(0, 0);
             panel_ToolBox.Name = "panel_ToolBox";
-            panel_ToolBox.Size = new Size(800, 46);
+            panel_ToolBox.Size = new Size(800, 40);
             panel_ToolBox.TabIndex = 2;
+            // 
+            // trackBar1
+            // 
+            trackBar1.Location = new Point(183, 3);
+            trackBar1.Maximum = 200;
+            trackBar1.Minimum = 1;
+            trackBar1.Name = "trackBar1";
+            trackBar1.Size = new Size(284, 45);
+            trackBar1.TabIndex = 2;
+            trackBar1.Value = 50;
+            trackBar1.Scroll += trackBar1_Scroll;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(125, 9);
+            label2.Name = "label2";
+            label2.Size = new Size(52, 15);
+            label2.TabIndex = 1;
+            label2.Text = "Contrast";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 14);
+            label1.Location = new Point(12, 9);
             label1.Name = "label1";
             label1.Size = new Size(39, 15);
             label1.TabIndex = 1;
@@ -129,13 +154,13 @@ namespace PACS_RishikeshDhakrao.UI
             Controls.Add(panel1);
             KeyPreview = true;
             Name = "ImageViewer";
-            Text = "ImageViwer";
+            Text = "ImageViewer";
             Load += ImageViewer_Load;
-            KeyUp += ImageViewer_KeyUp;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBoxMain).EndInit();
             panel_ToolBox.ResumeLayout(false);
             panel_ToolBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
             ResumeLayout(false);
         }
 
@@ -148,5 +173,7 @@ namespace PACS_RishikeshDhakrao.UI
         private ComboBox comboBox1;
         private Panel panel_ToolBox;
         private Label label1;
+        private TrackBar trackBar1;
+        private Label label2;
     }
 }
