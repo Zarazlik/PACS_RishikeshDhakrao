@@ -40,7 +40,7 @@
             maskedTextBox.BackColor = SystemColors.Control;
             maskedTextBox.BorderStyle = BorderStyle.None;
             maskedTextBox.Culture = new System.Globalization.CultureInfo("");
-            maskedTextBox.Font = new Font("Bahnschrift", 18F, FontStyle.Regular, GraphicsUnit.Pixel);
+            maskedTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             maskedTextBox.ForeColor = SystemColors.ControlText;
             maskedTextBox.Location = new Point(313, 13);
             maskedTextBox.Margin = new Padding(4);
@@ -58,7 +58,7 @@
             // 
             trackBar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             trackBar.Cursor = Cursors.Hand;
-            trackBar.LargeChange = 10;
+            trackBar.LargeChange = 1;
             trackBar.Location = new Point(4, 4);
             trackBar.Margin = new Padding(4);
             trackBar.Maximum = 255;
@@ -72,12 +72,12 @@
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.BackColor = SystemColors.Control;
-            label2.Font = new Font("Bahnschrift", 18F, FontStyle.Regular, GraphicsUnit.Pixel);
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label2.ForeColor = SystemColors.ControlText;
-            label2.Location = new Point(380, 13);
+            label2.Location = new Point(380, 14);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(63, 22);
+            label2.Size = new Size(54, 21);
             label2.TabIndex = 41;
             label2.Text = "#Text2";
             // 

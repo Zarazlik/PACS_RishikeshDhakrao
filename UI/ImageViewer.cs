@@ -20,7 +20,32 @@ namespace PACS_RishikeshDhakrao.UI
         public Bitmap bitmap;
         int ImageCount;
 
-        float zoomFactor = 1.0f;
+        double ZoomFactor
+        {
+            get { return _zoomFactor; }
+            set
+            {
+                if (bitmap != null)
+                {
+                    if (value > 5f)
+                    {
+                        _zoomFactor = 5;
+                    }
+                    else if (value < 0.05f)
+                    {
+                        _zoomFactor = 0.05f;
+                    }
+                    else
+                    {
+                        _zoomFactor = value;
+                    }
+
+                    comboBox1.Text = Math.Round(_zoomFactor * 100).ToString();
+                    ChangePictureBoxZoom();
+                }
+            }
+        }
+        double _zoomFactor = 1;
 
         private Point StartMousePosition;
         private Point initialAutoScrollPosition;
@@ -121,6 +146,7 @@ namespace PACS_RishikeshDhakrao.UI
 
         private void Panel1_MouseWheel(object sender, MouseEventArgs e)
         {
+            
             if ((ModifierKeys & Keys.Control) == Keys.Control)
             {
                 Point autoscrollBufer = panel1.AutoScrollPosition;
@@ -128,23 +154,21 @@ namespace PACS_RishikeshDhakrao.UI
 
                 if (e.Delta > 0)
                 {
-                    zoomFactor += 0.05f;
-                    ChangePictureBoxZoom();
+                    ZoomFactor = _zoomFactor + 0.05f;
                 }
                 else
                 {
-                    zoomFactor -= 0.05f;
-                    ChangePictureBoxZoom();
+                    ZoomFactor = _zoomFactor - 0.05f;
                 }
 
                 panel1.AutoScroll = true;
                 panel1.AutoScrollPosition = new Point(Math.Abs(autoscrollBufer.X), Math.Abs(autoscrollBufer.Y));
             }
+        }
 
-            void ChangePictureBoxZoom()
-            {
-                pictureBoxMain.Size = new Size((int)(bitmap.Width * zoomFactor), (int)(bitmap.Height * zoomFactor));
-            }
+        void ChangePictureBoxZoom()
+        {
+            pictureBoxMain.Size = new Size((int)(bitmap.Width * _zoomFactor), (int)(bitmap.Height * _zoomFactor));
         }
 
         #endregion
@@ -153,10 +177,15 @@ namespace PACS_RishikeshDhakrao.UI
 
         private void ImageViewer_KeyUp(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.ControlKey)
+            if (e.KeyCode == Keys.ControlKey)
             {
                 panel1.AutoScroll = true;
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ZoomFactor =  Convert.ToDouble(comboBox1.SelectedItem) / 100;
         }
     }
 }
