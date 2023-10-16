@@ -35,7 +35,6 @@ namespace PACS_RishikeshDhakrao.UI
             set
             {
                 _contrast = value;
-                //brightness = 1 / (1 - value);
                 SetContrastMatrix();
                 DrawImage();
             }
@@ -70,8 +69,10 @@ namespace PACS_RishikeshDhakrao.UI
         }
         double _zoomFactor = 1;
 
-        private Point StartMousePosition;
         private Point initialAutoScrollPosition;
+        private Size initialImageSize;
+
+        private Point StartMousePosition;
         private bool MouseIsDownLeft;
 
         public ImageViewer(DicomFile dicomFile, int imageCount)
@@ -91,6 +92,7 @@ namespace PACS_RishikeshDhakrao.UI
             myTrackBar1.ValueСhanged += MyTrackBar1_ValueСhanged;
 
             LoadImage(0);
+            
         }
 
         private void MyTrackBar1_ValueСhanged(object? sender, EventArgs e)
@@ -124,7 +126,6 @@ namespace PACS_RishikeshDhakrao.UI
         {
             backgroundWorker1 = sender as BackgroundWorker;
             originalBitmap = DicomRequester.OpenImageAsync(dicomFile, (int)e.Argument, backgroundWorker1, e);
-            bitmap = originalBitmap;
         }
 
         private void BackgroundWorker1_RunWorkerCompleted(object? sender, RunWorkerCompletedEventArgs e)
@@ -135,8 +136,10 @@ namespace PACS_RishikeshDhakrao.UI
             }
             else
             {
-                pictureBoxMain.Size = new Size(bitmap.Width, bitmap.Height);
-                pictureBoxMain.Image = bitmap;
+                bitmap = originalBitmap;
+                initialImageSize = new Size((int)(bitmap.Width * _zoomFactor), (int)(bitmap.Height * _zoomFactor));
+                pictureBoxMain.Size = initialImageSize;
+                DrawImage();
             }
         }
 
@@ -209,7 +212,8 @@ namespace PACS_RishikeshDhakrao.UI
 
         void ChangePictureBoxZoom()
         {
-            pictureBoxMain.Size = new Size((int)(bitmap.Width * _zoomFactor), (int)(bitmap.Height * _zoomFactor));
+            initialImageSize = new Size((int)(bitmap.Width * _zoomFactor), (int)(bitmap.Height * _zoomFactor));
+            pictureBoxMain.Size = initialImageSize;
         }
         #endregion
 

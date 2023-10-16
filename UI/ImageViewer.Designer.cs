@@ -123,7 +123,7 @@ namespace PACS_RishikeshDhakrao.UI
             trackBar1.Name = "trackBar1";
             trackBar1.Size = new Size(284, 45);
             trackBar1.TabIndex = 2;
-            trackBar1.Value = 50;
+            trackBar1.Value = 100;
             trackBar1.Scroll += trackBar1_Scroll;
             // 
             // label2
