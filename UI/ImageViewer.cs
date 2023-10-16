@@ -92,12 +92,11 @@ namespace PACS_RishikeshDhakrao.UI
             myTrackBar1.ValueСhanged += MyTrackBar1_ValueСhanged;
 
             LoadImage(0);
-            
         }
 
         private void MyTrackBar1_ValueСhanged(object? sender, EventArgs e)
         {
-            LoadImage(myTrackBar1.Value);
+            LoadImage(myTrackBar1.Value - 1);
         }
 
         void DrawImage()
@@ -185,7 +184,6 @@ namespace PACS_RishikeshDhakrao.UI
 
         private void Panel1_MouseWheel(object sender, MouseEventArgs e)
         {
-
             if ((ModifierKeys & Keys.Control) == Keys.Control)
             {
                 Point autoscrollBufer = panel1.AutoScrollPosition;
