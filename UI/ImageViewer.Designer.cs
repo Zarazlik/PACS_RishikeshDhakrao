@@ -30,58 +30,11 @@ namespace PACS_RishikeshDhakrao.UI
         /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new Panel();
-            pictureBoxMain = new PictureBox();
-            comboBox1 = new ComboBox();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             myTrackBar1 = new RMDdev.MyTrackBar();
-            panel_ToolBox = new Panel();
-            comboBox2 = new ComboBox();
-            trackBar1 = new TrackBar();
-            label3 = new Label();
-            label2 = new Label();
-            label1 = new Label();
-            panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxMain).BeginInit();
-            panel_ToolBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
+            viewingPanel1 = new BackEnd.ImageProcesing.ViewingPanel();
+            imageProcessor1 = new BackEnd.ImageProcesing.ImageProcessor();
             SuspendLayout();
-            // 
-            // panel1
-            // 
-            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panel1.AutoScroll = true;
-            panel1.BackColor = SystemColors.ControlDarkDark;
-            panel1.Controls.Add(pictureBoxMain);
-            panel1.Location = new Point(12, 46);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(776, 430);
-            panel1.TabIndex = 0;
-            panel1.MouseDown += PictureBox_MouseDown;
-            panel1.MouseMove += PictureBox_MouseMove;
-            panel1.MouseUp += PictureBox_MouseUp;
-            panel1.MouseWheel += Panel1_MouseWheel;
-            // 
-            // pictureBoxMain
-            // 
-            pictureBoxMain.Enabled = false;
-            pictureBoxMain.Location = new Point(0, 0);
-            pictureBoxMain.Name = "pictureBoxMain";
-            pictureBoxMain.Size = new Size(350, 259);
-            pictureBoxMain.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBoxMain.TabIndex = 0;
-            pictureBoxMain.TabStop = false;
-            // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "25", "50", "75", "100", "150", "200", "250", "300", "300", "400", "500" });
-            comboBox1.Location = new Point(57, 5);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(44, 23);
-            comboBox1.TabIndex = 0;
-            comboBox1.Text = "100";
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // backgroundWorker1
             // 
@@ -100,105 +53,48 @@ namespace PACS_RishikeshDhakrao.UI
             myTrackBar1.Max = 10;
             myTrackBar1.Min = 1;
             myTrackBar1.Name = "myTrackBar1";
-            myTrackBar1.Size = new Size(775, 39);
+            myTrackBar1.Size = new Size(776, 39);
             myTrackBar1.TabIndex = 1;
             myTrackBar1.Text2 = "";
             myTrackBar1.Value = 1;
             // 
-            // panel_ToolBox
+            // viewingPanel1
             // 
-            panel_ToolBox.Controls.Add(comboBox2);
-            panel_ToolBox.Controls.Add(trackBar1);
-            panel_ToolBox.Controls.Add(label3);
-            panel_ToolBox.Controls.Add(label2);
-            panel_ToolBox.Controls.Add(label1);
-            panel_ToolBox.Controls.Add(comboBox1);
-            panel_ToolBox.Dock = DockStyle.Top;
-            panel_ToolBox.Location = new Point(0, 0);
-            panel_ToolBox.Name = "panel_ToolBox";
-            panel_ToolBox.Size = new Size(800, 40);
-            panel_ToolBox.TabIndex = 2;
+            viewingPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            viewingPanel1.AutoScroll = true;
+            viewingPanel1.BackColor = SystemColors.ControlDarkDark;
+            viewingPanel1.Location = new Point(12, 47);
+            viewingPanel1.Name = "viewingPanel1";
+            viewingPanel1.Size = new Size(776, 429);
+            viewingPanel1.TabIndex = 3;
             // 
-            // comboBox2
+            // imageProcessor1
             // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Items.AddRange(new object[] { "None", "Metal hot blue" });
-            comboBox2.Location = new Point(531, 9);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(121, 23);
-            comboBox2.TabIndex = 3;
-            comboBox2.SelectedIndexChanged += comboBox2_SelectedIndexChanged;
-            // 
-            // trackBar1
-            // 
-            trackBar1.Location = new Point(183, 3);
-            trackBar1.Maximum = 200;
-            trackBar1.Minimum = 1;
-            trackBar1.Name = "trackBar1";
-            trackBar1.Size = new Size(284, 45);
-            trackBar1.TabIndex = 2;
-            trackBar1.Value = 100;
-            trackBar1.Scroll += trackBar1_Scroll;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(473, 12);
-            label3.Name = "label3";
-            label3.Size = new Size(52, 15);
-            label3.TabIndex = 1;
-            label3.Text = "Contrast";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(125, 9);
-            label2.Name = "label2";
-            label2.Size = new Size(52, 15);
-            label2.TabIndex = 1;
-            label2.Text = "Contrast";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(39, 15);
-            label1.TabIndex = 1;
-            label1.Text = "Zoom";
+            imageProcessor1.Dock = DockStyle.Top;
+            imageProcessor1.Location = new Point(0, 0);
+            imageProcessor1.Name = "imageProcessor1";
+            imageProcessor1.Size = new Size(800, 41);
+            imageProcessor1.TabIndex = 4;
             // 
             // ImageViewer
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 535);
-            Controls.Add(panel_ToolBox);
+            Controls.Add(imageProcessor1);
+            Controls.Add(viewingPanel1);
             Controls.Add(myTrackBar1);
-            Controls.Add(panel1);
             KeyPreview = true;
             Name = "ImageViewer";
             Text = "ImageViewer";
             Load += ImageViewer_Load;
-            panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBoxMain).EndInit();
-            panel_ToolBox.ResumeLayout(false);
-            panel_ToolBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-
-        private Panel panel1;
-        private PictureBox pictureBoxMain;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private RMDdev.MyTrackBar myTrackBar1;
-        private ComboBox comboBox1;
-        private Panel panel_ToolBox;
-        private Label label1;
-        private TrackBar trackBar1;
-        private Label label2;
-        private ComboBox comboBox2;
-        private Label label3;
+        private BackEnd.ImageProcesing.ViewingPanel viewingPanel1;
+        private BackEnd.ImageProcesing.ImageProcessor imageProcessor1;
     }
 }
