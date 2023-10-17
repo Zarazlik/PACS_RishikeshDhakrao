@@ -36,7 +36,9 @@ namespace PACS_RishikeshDhakrao.UI
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             myTrackBar1 = new RMDdev.MyTrackBar();
             panel_ToolBox = new Panel();
+            comboBox2 = new ComboBox();
             trackBar1 = new TrackBar();
+            label3 = new Label();
             label2 = new Label();
             label1 = new Label();
             panel1.SuspendLayout();
@@ -105,7 +107,9 @@ namespace PACS_RishikeshDhakrao.UI
             // 
             // panel_ToolBox
             // 
+            panel_ToolBox.Controls.Add(comboBox2);
             panel_ToolBox.Controls.Add(trackBar1);
+            panel_ToolBox.Controls.Add(label3);
             panel_ToolBox.Controls.Add(label2);
             panel_ToolBox.Controls.Add(label1);
             panel_ToolBox.Controls.Add(comboBox1);
@@ -114,6 +118,16 @@ namespace PACS_RishikeshDhakrao.UI
             panel_ToolBox.Name = "panel_ToolBox";
             panel_ToolBox.Size = new Size(800, 40);
             panel_ToolBox.TabIndex = 2;
+            // 
+            // comboBox2
+            // 
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Items.AddRange(new object[] { "None", "Metal hot blue" });
+            comboBox2.Location = new Point(531, 9);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(121, 23);
+            comboBox2.TabIndex = 3;
+            comboBox2.SelectedIndexChanged += comboBox2_SelectedIndexChanged;
             // 
             // trackBar1
             // 
@@ -125,6 +139,15 @@ namespace PACS_RishikeshDhakrao.UI
             trackBar1.TabIndex = 2;
             trackBar1.Value = 100;
             trackBar1.Scroll += trackBar1_Scroll;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(473, 12);
+            label3.Name = "label3";
+            label3.Size = new Size(52, 15);
+            label3.TabIndex = 1;
+            label3.Text = "Contrast";
             // 
             // label2
             // 
@@ -175,5 +198,7 @@ namespace PACS_RishikeshDhakrao.UI
         private Label label1;
         private TrackBar trackBar1;
         private Label label2;
+        private ComboBox comboBox2;
+        private Label label3;
     }
 }

@@ -108,6 +108,11 @@ namespace PACS_RishikeshDhakrao.UI
                     0, 0, newImage.Width, newImage.Height, GraphicsUnit.Pixel, imageAttributes);
             }
 
+            if (comboBox2.Text == "Metal hot blue")
+            {
+                newImage = ApplyHotMetalBlueFilter(newImage);
+            }
+
             pictureBoxMain.Image = newImage;
         }
 
@@ -243,7 +248,32 @@ namespace PACS_RishikeshDhakrao.UI
 
         #endregion
 
+        #region Color filter
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DrawImage();
+        }
+
+        Bitmap ApplyHotMetalBlueFilter(Bitmap originalImage)
+        {
+            Bitmap filter = ColorFiltersResource.Gradient_MetalHotBlue;
+
+            for (int x = 0; x < originalImage.Width; x++)
+            {
+                for (int y = 0; y < originalImage.Height; y++)
+                {
+                    byte filteredBrightness = bitmap.GetPixel(x, y).R;
+
+                    originalImage.SetPixel(x, y, filter.GetPixel(filteredBrightness, 0));
+                }
+            }
+            return originalImage;
+        }
+
         #endregion
+
+        #endregion
+
 
 
     }

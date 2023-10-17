@@ -14,4 +14,19 @@
     <PackageReference Include="fo-dicom.Codecs" Version="5.10.8" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="UI\ColorFiltersResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ColorFiltersResource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="UI\ColorFiltersResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ColorFiltersResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>
