@@ -54,8 +54,8 @@ namespace PACS_RishikeshDhakrao.UI
                 int availableWidth = panel_Paper.Width - (pictureBoxesPerRow + 1) * marginBetweenPictureBoxes;
                 int pictureBoxWidth = availableWidth / pictureBoxesPerRow;
 
-                int availableHeight = panel_Paper.Height - (pictureBoxesPerRow + 1) * marginBetweenPictureBoxes;
-                int pictureBoxHeight = availableHeight / pictureBoxesPerRow;
+                int availableHeight = panel_Paper.Height - (numberOfPictureBoxes + 1) * marginBetweenPictureBoxes;
+                int pictureBoxHeight = availableHeight / (int)Math.Ceiling((double)numberOfPictureBoxes / pictureBoxesPerRow);
 
                 int currentX = marginFromEdges;
                 int currentY = marginFromEdges;
@@ -81,7 +81,7 @@ namespace PACS_RishikeshDhakrao.UI
                     {
                         // Если следующий PictureBox не помещается в текущей строке, переход к следующей строке
                         currentX = marginFromEdges;
-                        currentY += pictureBoxHeight + marginBetweenPictureBoxes;
+                        currentY += pictureBoxHeight  + marginBetweenPictureBoxes;
                     }
                 }
             }
