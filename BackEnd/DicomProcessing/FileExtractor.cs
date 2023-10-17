@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using FellowOakDicom;
 
-namespace PACS_RishikeshDhakrao.BackEnd
+namespace PACS_RishikeshDhakrao.BackEnd.DicomProcessing
 {
     public static class FileExtractor
     {
@@ -14,6 +14,6 @@ namespace PACS_RishikeshDhakrao.BackEnd
         {
             return DicomFile.Open(path);
         }
-            
+
     }
 }

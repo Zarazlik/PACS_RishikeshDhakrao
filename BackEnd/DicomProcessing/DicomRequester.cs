@@ -3,7 +3,7 @@ using FellowOakDicom.Imaging;
 using System.ComponentModel;
 using System.Security.AccessControl;
 
-namespace PACS_RishikeshDhakrao.BackEnd
+namespace PACS_RishikeshDhakrao.BackEnd.DicomProcessing
 {
     public static class DicomRequester
     {
@@ -69,8 +69,8 @@ namespace PACS_RishikeshDhakrao.BackEnd
 
         public static string GetPatientName(DicomFile dicomFile)
         {
-            try 
-            { 
+            try
+            {
                 return dicomFile.Dataset.GetSingleValue<string>(DicomTag.PatientName);
             }
             catch
@@ -128,7 +128,7 @@ namespace PACS_RishikeshDhakrao.BackEnd
         }
 
         public static uint GetImagesCount(DicomFile dicomFile)
-        { 
+        {
             try
             {
                 return dicomFile.Dataset.GetSingleValue<uint>(DicomTag.NumberOfFrames);

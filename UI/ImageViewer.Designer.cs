@@ -71,6 +71,7 @@ namespace PACS_RishikeshDhakrao.UI
             // imageProcessor1
             // 
             imageProcessor1.Dock = DockStyle.Top;
+            imageProcessor1.Enabled = false;
             imageProcessor1.Location = new Point(0, 0);
             imageProcessor1.Name = "imageProcessor1";
             imageProcessor1.Size = new Size(800, 41);

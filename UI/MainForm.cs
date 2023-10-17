@@ -1,4 +1,4 @@
-﻿using PACS_RishikeshDhakrao.BackEnd;
+﻿using PACS_RishikeshDhakrao.BackEnd.DicomProcessing;
 
 namespace PACS_RishikeshDhakrao.UI
 {
@@ -6,6 +6,7 @@ namespace PACS_RishikeshDhakrao.UI
     {
         List<FellowOakDicom.DicomFile> dicomFiles = new List<FellowOakDicom.DicomFile>();
         ImageViewer viewer;
+        PrintingWindow printingWindow = new PrintingWindow();
 
         public MainWindow()
         {
@@ -42,13 +43,18 @@ namespace PACS_RishikeshDhakrao.UI
         {
             if (e.RowIndex != -1)
             {
-                if(viewer != null) 
-                { 
+                if (viewer != null)
+                {
                     viewer.Dispose();
                 }
                 viewer = new ImageViewer(dicomFiles[e.RowIndex], Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[5].Value));
                 viewer.Show();
             }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            printingWindow.Show();
         }
     }
 }

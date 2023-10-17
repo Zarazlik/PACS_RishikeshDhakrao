@@ -63,6 +63,16 @@ namespace PACS_RishikeshDhakrao.UI {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap abstract_rectangle_background_free_vector {
+            get {
+                object obj = ResourceManager.GetObject("abstract_rectangle_background_free_vector", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Gradient_HotIron {
             get {
                 object obj = ResourceManager.GetObject("Gradient_HotIron", resourceCulture);

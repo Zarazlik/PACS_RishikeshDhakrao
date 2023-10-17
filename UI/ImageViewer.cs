@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using FellowOakDicom;
-using PACS_RishikeshDhakrao.BackEnd;
+using PACS_RishikeshDhakrao.BackEnd.DicomProcessing;
 using PACS_RishikeshDhakrao.BackEnd.ImageProcesing;
 
 namespace PACS_RishikeshDhakrao.UI

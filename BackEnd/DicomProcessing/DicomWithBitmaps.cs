@@ -1,6 +1,6 @@
 ﻿using FellowOakDicom;
 
-namespace PACS_RishikeshDhakrao.BackEnd
+namespace PACS_RishikeshDhakrao.BackEnd.DicomProcessing
 {
     public class DicomWithBitmaps
     {

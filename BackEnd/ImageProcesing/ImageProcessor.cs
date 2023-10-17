@@ -74,7 +74,7 @@ namespace PACS_RishikeshDhakrao.BackEnd.ImageProcesing
         private Point StartMousePosition;
         private bool MouseIsDownLeft;
 
-        public event EventHandler LoadingCanseled; 
+        public event EventHandler LoadingCanseled;
 
         public ImageProcessor()
         {

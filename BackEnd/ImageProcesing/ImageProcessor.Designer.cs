@@ -40,9 +40,10 @@
             // 
             // comboBox2
             // 
+            comboBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             comboBox2.FormattingEnabled = true;
             comboBox2.Items.AddRange(new object[] { "None", "Metal hot blue", "Hot iron" });
-            comboBox2.Location = new Point(503, 8);
+            comboBox2.Location = new Point(530, 8);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(121, 23);
             comboBox2.TabIndex = 9;
@@ -51,19 +52,21 @@
             // 
             // trackBar1
             // 
+            trackBar1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             trackBar1.Location = new Point(174, 6);
             trackBar1.Maximum = 200;
             trackBar1.Minimum = 1;
             trackBar1.Name = "trackBar1";
-            trackBar1.Size = new Size(284, 45);
+            trackBar1.Size = new Size(311, 45);
             trackBar1.TabIndex = 8;
             trackBar1.Value = 100;
             trackBar1.Scroll += trackBar1_Scroll;
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label3.AutoSize = true;
-            label3.Location = new Point(464, 12);
+            label3.Location = new Point(491, 12);
             label3.Name = "label3";
             label3.Size = new Size(33, 15);
             label3.TabIndex = 5;
@@ -97,7 +100,6 @@
             comboBox1.TabIndex = 4;
             comboBox1.Text = "100";
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
-
             // 
             // ImageProcessor
             // 
@@ -110,7 +112,7 @@
             Controls.Add(label1);
             Controls.Add(comboBox1);
             Name = "ImageProcessor";
-            Size = new Size(820, 45);
+            Size = new Size(847, 45);
             ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
             ResumeLayout(false);
             PerformLayout();
