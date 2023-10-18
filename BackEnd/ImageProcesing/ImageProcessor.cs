@@ -76,6 +76,17 @@ namespace PACS_RishikeshDhakrao.BackEnd.ImageProcesing
 
         public event EventHandler LoadingCanseled;
 
+        public bool AutoScrollMode
+        {
+            get { return _autoScrollMode; }
+            set
+            {
+                _autoScrollMode = value;
+                viewingPanel.AutoScroll = value;
+            }
+        }
+        bool _autoScrollMode;
+
         public ImageProcessor()
         {
             InitializeComponent();
@@ -146,8 +157,16 @@ namespace PACS_RishikeshDhakrao.BackEnd.ImageProcesing
                 {
                     if (e.Location != StartMousePosition)
                     {
-                        viewingPanel.AutoScrollPosition = new Point(Math.Abs(viewingPanel.AutoScrollPosition.X + (e.Location.X - StartMousePosition.X)), Math.Abs(viewingPanel.AutoScrollPosition.Y + (e.Location.Y - StartMousePosition.Y)));
-                        StartMousePosition = e.Location;
+                        if (_autoScrollMode)
+                        {
+                            viewingPanel.AutoScrollPosition = new Point(Math.Abs(viewingPanel.AutoScrollPosition.X + (e.Location.X - StartMousePosition.X)), Math.Abs(viewingPanel.AutoScrollPosition.Y + (e.Location.Y - StartMousePosition.Y)));
+                            StartMousePosition = e.Location;
+                        }
+                        else 
+                        {
+                            viewingPanel.pictureBox.Location = new Point(pictureBox.Location.X + (e.Location.X - StartMousePosition.X), pictureBox.Location.Y + (e.Location.Y - StartMousePosition.Y));
+                            StartMousePosition = e.Location;
+                        }
                     }
                 }
             }

@@ -35,6 +35,14 @@ namespace PACS_RishikeshDhakrao.UI
 
         void ChangeSpots()
         {
+            foreach (var processors in imageProcessors)
+            {
+                Controls.Remove(processors.Item1);
+                processors.Item1.Dispose();
+
+                Controls.Remove(processors.Item2);
+                processors.Item2.Dispose();
+            }
             imageProcessors.Clear();
 
             if (numericUpDown1.Value == 1 || numericUpDown1.Value == 2)
@@ -79,7 +87,6 @@ namespace PACS_RishikeshDhakrao.UI
                     viewingPanel.Width = pictureBoxWidth;
                     viewingPanel.Height = pictureBoxHeight;
                     viewingPanel.Margin = new Padding(marginBetweenPictureBoxes);
-
                     viewingPanel.Location = new Point(currentX, currentY);
 
                     panel_Paper.Controls.Add(viewingPanel);
@@ -99,11 +106,12 @@ namespace PACS_RishikeshDhakrao.UI
         {
             ImageProcessor imageProcessor = new ImageProcessor();
             this.Controls.Add(imageProcessor);
-            imageProcessor.Dock = DockStyle.Top;
+            imageProcessor.Location = new Point(0, 0);
             imageProcessor.Visible = false;
 
             imageProcessors.Add((imageProcessor, viewingPanel));
             imageProcessors[imageProcessors.Count - 1].Item1.SetViewingPanel(viewingPanel);
+            imageProcessor.AutoScrollMode = false;
         }
 
         void FillImageProcessors(int count)
