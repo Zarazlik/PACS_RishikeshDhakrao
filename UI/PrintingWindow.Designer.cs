@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            panel_Paper = new Panel();
             button1 = new Button();
             printDialog1 = new PrintDialog();
             panel2 = new Panel();
             comboBox1 = new ComboBox();
-            panel_Paper = new Panel();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
@@ -48,6 +48,14 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(640, 357);
             panel1.TabIndex = 0;
+            // 
+            // panel_Paper
+            // 
+            panel_Paper.BackColor = Color.White;
+            panel_Paper.Location = new Point(3, 3);
+            panel_Paper.Name = "panel_Paper";
+            panel_Paper.Size = new Size(1050, 1485);
+            panel_Paper.TabIndex = 0;
             // 
             // button1
             // 
@@ -85,14 +93,6 @@
             comboBox1.TabIndex = 2;
             comboBox1.Text = "1 Spot";
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
-            // 
-            // panel_Paper
-            // 
-            panel_Paper.BackColor = Color.White;
-            panel_Paper.Location = new Point(3, 3);
-            panel_Paper.Name = "panel_Paper";
-            panel_Paper.Size = new Size(1170, 826);
-            panel_Paper.TabIndex = 0;
             // 
             // PrintingWindow
             // 

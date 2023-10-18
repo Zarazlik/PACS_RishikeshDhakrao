@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Printing;
-using static System.Net.Mime.MediaTypeNames;
+using System.Drawing.Imaging;
 
 namespace PACS_RishikeshDhakrao.UI
 {
@@ -81,14 +81,14 @@ namespace PACS_RishikeshDhakrao.UI
                     {
                         // Если следующий PictureBox не помещается в текущей строке, переход к следующей строке
                         currentX = marginFromEdges;
-                        currentY += pictureBoxHeight  + marginBetweenPictureBoxes;
+                        currentY += pictureBoxHeight + marginBetweenPictureBoxes;
                     }
                 }
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
+        {            
             printDialog1.Document = new PrintDocument();
             printDialog1.Document.PrintPage += PrintImage;
 
@@ -100,9 +100,14 @@ namespace PACS_RishikeshDhakrao.UI
 
         void PrintImage(object sender, PrintPageEventArgs e)
         {
+            int PeperSizeX = 1050;
+            int PeperSizeY = 1485;
+
+            e.PageSettings.PaperSize = new PaperSize("210х297", PeperSizeX, PeperSizeY);
+
             bitmap = new Bitmap(panel_Paper.Width, panel_Paper.Height);
-            panel_Paper.DrawToBitmap(bitmap, new Rectangle(0, 0, panel_Paper.Width, panel_Paper.Height));
-            e.Graphics.DrawImage(bitmap, 0, 0);
+            panel_Paper.DrawToBitmap(bitmap, new Rectangle(0, 0, PeperSizeX, PeperSizeY));
+            e.Graphics.DrawImage(bitmap, new Rectangle(0, 0, (int)(PeperSizeX / 1.27f), (int)(PeperSizeY / 1.27f)));
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
