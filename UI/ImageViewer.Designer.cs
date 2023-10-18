@@ -34,6 +34,7 @@ namespace PACS_RishikeshDhakrao.UI
             myTrackBar1 = new RMDdev.MyTrackBar();
             viewingPanel1 = new BackEnd.ImageProcesing.ViewingPanel();
             imageProcessor1 = new BackEnd.ImageProcesing.ImageProcessor();
+            button1 = new Button();
             SuspendLayout();
             // 
             // backgroundWorker1
@@ -70,18 +71,28 @@ namespace PACS_RishikeshDhakrao.UI
             // 
             // imageProcessor1
             // 
-            imageProcessor1.Dock = DockStyle.Top;
-            imageProcessor1.Enabled = false;
-            imageProcessor1.Location = new Point(0, 0);
+            imageProcessor1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            imageProcessor1.Location = new Point(93, 0);
             imageProcessor1.Name = "imageProcessor1";
-            imageProcessor1.Size = new Size(800, 41);
+            imageProcessor1.Size = new Size(707, 41);
             imageProcessor1.TabIndex = 4;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(12, 10);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 5;
+            button1.Text = "Print";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // ImageViewer
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 535);
+            Controls.Add(button1);
             Controls.Add(imageProcessor1);
             Controls.Add(viewingPanel1);
             Controls.Add(myTrackBar1);
@@ -97,5 +108,6 @@ namespace PACS_RishikeshDhakrao.UI
         private RMDdev.MyTrackBar myTrackBar1;
         private BackEnd.ImageProcesing.ViewingPanel viewingPanel1;
         private BackEnd.ImageProcesing.ImageProcessor imageProcessor1;
+        private Button button1;
     }
 }

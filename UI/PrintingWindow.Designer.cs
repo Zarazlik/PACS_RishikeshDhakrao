@@ -33,16 +33,18 @@
             button1 = new Button();
             printDialog1 = new PrintDialog();
             panel2 = new Panel();
-            comboBox1 = new ComboBox();
+            numericUpDown1 = new NumericUpDown();
+            label1 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel1.AutoScroll = true;
-            panel1.BackColor = SystemColors.ControlDarkDark;
+            panel1.BackColor = SystemColors.ControlDark;
             panel1.Controls.Add(panel_Paper);
             panel1.Location = new Point(12, 51);
             panel1.Name = "panel1";
@@ -75,24 +77,33 @@
             // panel2
             // 
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            panel2.Controls.Add(comboBox1);
+            panel2.Controls.Add(label1);
+            panel2.Controls.Add(numericUpDown1);
             panel2.Controls.Add(button1);
             panel2.Location = new Point(658, 51);
             panel2.Name = "panel2";
             panel2.Size = new Size(126, 357);
             panel2.TabIndex = 2;
             // 
-            // comboBox1
+            // numericUpDown1
             // 
-            comboBox1.AutoCompleteCustomSource.AddRange(new string[] { "1 Spot", "2 Spots", "4 Spots", "6 Spots", "8 Spots", "10 Spots", "12 Spots" });
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "1 Spot", "2 Spots", "4 Spots", "6 Spots", "8 Spots", "10 Spots", "12 Spots" });
-            comboBox1.Location = new Point(3, 3);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(120, 23);
-            comboBox1.TabIndex = 2;
-            comboBox1.Text = "1 Spot";
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            numericUpDown1.Location = new Point(3, 21);
+            numericUpDown1.Maximum = new decimal(new int[] { 12, 0, 0, 0 });
+            numericUpDown1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(120, 23);
+            numericUpDown1.TabIndex = 2;
+            numericUpDown1.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDown1.ValueChanged += numericUpDown1_ValueChanged;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(3, 3);
+            label1.Name = "label1";
+            label1.Size = new Size(74, 15);
+            label1.TabIndex = 3;
+            label1.Text = "Image count";
             // 
             // PrintingWindow
             // 
@@ -106,6 +117,8 @@
             Load += PrintingWindow_Load;
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ResumeLayout(false);
         }
 
@@ -115,7 +128,8 @@
         private Button button1;
         private PrintDialog printDialog1;
         private Panel panel2;
-        private ComboBox comboBox1;
         private Panel panel_Paper;
+        private NumericUpDown numericUpDown1;
+        private Label label1;
     }
 }

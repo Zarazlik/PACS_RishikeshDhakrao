@@ -40,7 +40,6 @@
             AccessionNumber = new DataGridViewTextBoxColumn();
             ReferingPhsyician = new DataGridViewTextBoxColumn();
             openFileDialog1 = new OpenFileDialog();
-            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -142,23 +141,12 @@
             openFileDialog1.Filter = "DICOM file (*.dcm)|*.dcm";
             openFileDialog1.FileOk += openFileDialog1_FileOk;
             // 
-            // button1
-            // 
-            button1.Location = new Point(137, 16);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 5;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click_1;
-            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             ClientSize = new Size(845, 449);
-            Controls.Add(button1);
             Controls.Add(dataGridView1);
             Controls.Add(btn_OpenFile);
             Margin = new Padding(4, 3, 4, 3);
@@ -182,7 +170,6 @@
         private DataGridViewTextBoxColumn Modality;
         private DataGridViewTextBoxColumn AccessionNumber;
         private DataGridViewTextBoxColumn ReferingPhsyician;
-        private Button button1;
     }
 }
 

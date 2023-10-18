@@ -9,17 +9,22 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Printing;
 using System.Drawing.Imaging;
+using PACS_RishikeshDhakrao.BackEnd.ImageProcesing;
+using FellowOakDicom;
+using PACS_RishikeshDhakrao.BackEnd.DicomProcessing;
 
 namespace PACS_RishikeshDhakrao.UI
 {
     public partial class PrintingWindow : Form
     {
-        Bitmap bitmap;
+        DicomFile dicomFile;
 
-        List<PictureBox> pictureBoxes;
+        List<(ImageProcessor, ViewingPanel)> imageProcessors =new List<(ImageProcessor, ViewingPanel)>();
 
-        public PrintingWindow()
+        public PrintingWindow(DicomFile dicomFile)
         {
+            this.dicomFile = dicomFile;
+
             InitializeComponent();
         }
 
@@ -30,22 +35,28 @@ namespace PACS_RishikeshDhakrao.UI
 
         void ChangeSpots()
         {
-            if (comboBox1.Text == "1 Spot")
+            imageProcessors.Clear();
+
+            if (numericUpDown1.Value == 1 || numericUpDown1.Value == 2)
             {
-                DistributePictureBoxes(1, 1);
+                DistributePictureBoxes((int)numericUpDown1.Value, 1);
             }
-            else if (comboBox1.Text == "2 Spots")
+            else if (numericUpDown1.Value >= 3 && numericUpDown1.Value < 11)
             {
-                DistributePictureBoxes(2, 2);
+                DistributePictureBoxes((int)numericUpDown1.Value, 2);
             }
-            else if (comboBox1.Text == "4 Spots")
+            else if (numericUpDown1.Value == 11 || numericUpDown1.Value == 12)
             {
-                DistributePictureBoxes(4, 2);
+                DistributePictureBoxes((int)numericUpDown1.Value, 3);
             }
 
+            imageProcessors[0].Item1.Visible = true;
+            FillImageProcessors(0);
+
+
+            //---
             void DistributePictureBoxes(int numberOfPictureBoxes, int pictureBoxesPerRow)
             {
-                // Очистим panel_Paper от предыдущих контролов (если есть)
                 panel_Paper.Controls.Clear();
 
                 int marginBetweenPictureBoxes = 6;
@@ -62,24 +73,21 @@ namespace PACS_RishikeshDhakrao.UI
 
                 for (int i = 0; i < numberOfPictureBoxes; i++)
                 {
-                    PictureBox pictureBox = new PictureBox();
+                    ViewingPanel viewingPanel = new ViewingPanel();
+                    AddImageProcessor(viewingPanel);
 
-                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                    pictureBox.Image = ColorFiltersResource.abstract_rectangle_background_free_vector;
+                    viewingPanel.Width = pictureBoxWidth;
+                    viewingPanel.Height = pictureBoxHeight;
+                    viewingPanel.Margin = new Padding(marginBetweenPictureBoxes);
 
-                    pictureBox.Width = pictureBoxWidth;
-                    pictureBox.Height = pictureBoxHeight; // Можно установить другую высоту, если нужно
-                    pictureBox.Margin = new Padding(marginBetweenPictureBoxes);
+                    viewingPanel.Location = new Point(currentX, currentY);
 
-                    pictureBox.Location = new Point(currentX, currentY);
-
-                    panel_Paper.Controls.Add(pictureBox);
+                    panel_Paper.Controls.Add(viewingPanel);
 
                     currentX += pictureBoxWidth + marginBetweenPictureBoxes;
 
                     if (currentX + pictureBoxWidth + marginBetweenPictureBoxes > panel_Paper.Width)
                     {
-                        // Если следующий PictureBox не помещается в текущей строке, переход к следующей строке
                         currentX = marginFromEdges;
                         currentY += pictureBoxHeight + marginBetweenPictureBoxes;
                     }
@@ -87,8 +95,34 @@ namespace PACS_RishikeshDhakrao.UI
             }
         }
 
+        void AddImageProcessor(ViewingPanel viewingPanel)
+        {
+            ImageProcessor imageProcessor = new ImageProcessor();
+            this.Controls.Add(imageProcessor);
+            imageProcessor.Dock = DockStyle.Top;
+            imageProcessor.Visible = false;
+
+            imageProcessors.Add((imageProcessor, viewingPanel));
+            imageProcessors[imageProcessors.Count - 1].Item1.SetViewingPanel(viewingPanel);
+        }
+
+        void FillImageProcessors(int count)
+        {
+            for (int i = 0;  i < numericUpDown1.Value; i++) 
+            {
+                try
+                { 
+                    imageProcessors[i].Item1.SetNewImage(DicomRequester.OpenImage(dicomFile, i + count));
+                }
+                catch
+                {
+                    imageProcessors[i].Item1.Enabled = false;
+                }
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e)
-        {            
+        {
             printDialog1.Document = new PrintDocument();
             printDialog1.Document.PrintPage += PrintImage;
 
@@ -105,16 +139,14 @@ namespace PACS_RishikeshDhakrao.UI
 
             e.PageSettings.PaperSize = new PaperSize("210х297", PeperSizeX, PeperSizeY);
 
-            bitmap = new Bitmap(panel_Paper.Width, panel_Paper.Height);
-            panel_Paper.DrawToBitmap(bitmap, new Rectangle(0, 0, PeperSizeX, PeperSizeY));
-            e.Graphics.DrawImage(bitmap, new Rectangle(0, 0, (int)(PeperSizeX / 1.27f), (int)(PeperSizeY / 1.27f)));
+            Bitmap PrintingBitmap = new Bitmap(panel_Paper.Width, panel_Paper.Height);
+            panel_Paper.DrawToBitmap(PrintingBitmap, new Rectangle(0, 0, PeperSizeX, PeperSizeY));
+            e.Graphics.DrawImage(PrintingBitmap, new Rectangle(0, 0, (int)(PeperSizeX / 1.27f), (int)(PeperSizeY / 1.27f)));
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             ChangeSpots();
         }
-
-
     }
 }
