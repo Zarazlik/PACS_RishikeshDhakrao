@@ -19,19 +19,25 @@ namespace PACS_RishikeshDhakrao.UI
     public partial class PrintingWindow : Form
     {
         DicomFile dicomFile;
+        int imageCount;
 
         List<(ImageProcessor, ViewingPanel)> imageProcessors = new List<(ImageProcessor, ViewingPanel)>();
         int OpenedProcessor = 0;
 
-        public PrintingWindow(DicomFile dicomFile)
+        bool numericUpDownBufer;
+
+        public PrintingWindow(DicomFile dicomFile, int imageCount)
         {
             this.dicomFile = dicomFile;
+            this.imageCount = imageCount;
 
             InitializeComponent();
         }
 
         private void PrintingWindow_Load(object sender, EventArgs e)
         {
+            numericUpDown3.Maximum = imageCount;
+
             panel1.MouseWheel += Panel1_MouseWheel;
 
             ChangeSpots();
@@ -135,6 +141,7 @@ namespace PACS_RishikeshDhakrao.UI
                 try
                 {
                     imageProcessors[i].Item1.SetNewImage(DicomRequester.OpenImage(dicomFile, i + count));
+                    imageProcessors[i].Item1.Enabled = true;
                 }
                 catch
                 {
@@ -259,5 +266,9 @@ namespace PACS_RishikeshDhakrao.UI
             }
         }
 
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+            FillImageProcessors((int)numericUpDown3.Value - 1);
+        }
     }
 }

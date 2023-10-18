@@ -82,7 +82,7 @@ namespace PACS_RishikeshDhakrao.UI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new PrintingWindow(dicomFile).Show();
+            new PrintingWindow(dicomFile, ImageCount).Show();
         }
     }
 }

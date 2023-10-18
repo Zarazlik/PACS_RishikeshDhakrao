@@ -33,7 +33,9 @@
             button1 = new Button();
             printDialog1 = new PrintDialog();
             panel2 = new Panel();
+            label3 = new Label();
             label1 = new Label();
+            numericUpDown3 = new NumericUpDown();
             numericUpDown1 = new NumericUpDown();
             numericUpDown2 = new NumericUpDown();
             label2 = new Label();
@@ -41,6 +43,7 @@
             hScrollBar1 = new HScrollBar();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
             SuspendLayout();
@@ -84,7 +87,9 @@
             // panel2
             // 
             panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            panel2.Controls.Add(label3);
             panel2.Controls.Add(label1);
+            panel2.Controls.Add(numericUpDown3);
             panel2.Controls.Add(numericUpDown1);
             panel2.Controls.Add(button1);
             panel2.Location = new Point(658, 51);
@@ -92,22 +97,42 @@
             panel2.Size = new Size(126, 357);
             panel2.TabIndex = 2;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(3, 56);
+            label3.Name = "label3";
+            label3.Size = new Size(106, 15);
+            label3.TabIndex = 3;
+            label3.Text = "Images in file from";
+            // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Location = new Point(3, 3);
             label1.Name = "label1";
-            label1.Size = new Size(74, 15);
+            label1.Size = new Size(70, 15);
             label1.TabIndex = 3;
-            label1.Text = "Image count";
+            label1.Text = "Spots count";
+            // 
+            // numericUpDown3
+            // 
+            numericUpDown3.Location = new Point(3, 74);
+            numericUpDown3.Maximum = new decimal(new int[] { 12, 0, 0, 0 });
+            numericUpDown3.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDown3.Name = "numericUpDown3";
+            numericUpDown3.Size = new Size(120, 23);
+            numericUpDown3.TabIndex = 2;
+            numericUpDown3.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDown3.ValueChanged += numericUpDown3_ValueChanged;
             // 
             // numericUpDown1
             // 
-            numericUpDown1.Location = new Point(3, 21);
+            numericUpDown1.Location = new Point(74, 5);
             numericUpDown1.Maximum = new decimal(new int[] { 12, 0, 0, 0 });
             numericUpDown1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(120, 23);
+            numericUpDown1.Size = new Size(49, 23);
             numericUpDown1.TabIndex = 2;
             numericUpDown1.Value = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDown1.ValueChanged += numericUpDown1_ValueChanged;
@@ -170,6 +195,7 @@
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
             ResumeLayout(false);
@@ -189,5 +215,7 @@
         private Label label2;
         private VScrollBar vScrollBar1;
         private HScrollBar hScrollBar1;
+        private Label label3;
+        private NumericUpDown numericUpDown3;
     }
 }
