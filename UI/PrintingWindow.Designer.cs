@@ -33,27 +33,34 @@
             button1 = new Button();
             printDialog1 = new PrintDialog();
             panel2 = new Panel();
-            numericUpDown1 = new NumericUpDown();
             label1 = new Label();
+            numericUpDown1 = new NumericUpDown();
+            numericUpDown2 = new NumericUpDown();
+            label2 = new Label();
+            vScrollBar1 = new VScrollBar();
+            hScrollBar1 = new HScrollBar();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panel1.AutoScroll = true;
             panel1.BackColor = SystemColors.ControlDark;
+            panel1.BorderStyle = BorderStyle.Fixed3D;
             panel1.Controls.Add(panel_Paper);
             panel1.Location = new Point(12, 51);
             panel1.Name = "panel1";
-            panel1.Size = new Size(640, 357);
+            panel1.Size = new Size(623, 340);
             panel1.TabIndex = 0;
+            panel1.SizeChanged += panel1_SizeChanged;
             // 
             // panel_Paper
             // 
             panel_Paper.BackColor = Color.White;
+            panel_Paper.CausesValidation = false;
             panel_Paper.Location = new Point(3, 3);
             panel_Paper.Name = "panel_Paper";
             panel_Paper.Size = new Size(1050, 1485);
@@ -85,6 +92,15 @@
             panel2.Size = new Size(126, 357);
             panel2.TabIndex = 2;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(3, 3);
+            label1.Name = "label1";
+            label1.Size = new Size(74, 15);
+            label1.TabIndex = 3;
+            label1.Text = "Image count";
+            // 
             // numericUpDown1
             // 
             numericUpDown1.Location = new Point(3, 21);
@@ -96,20 +112,56 @@
             numericUpDown1.Value = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDown1.ValueChanged += numericUpDown1_ValueChanged;
             // 
-            // label1
+            // numericUpDown2
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(3, 3);
-            label1.Name = "label1";
-            label1.Size = new Size(74, 15);
-            label1.TabIndex = 3;
-            label1.Text = "Image count";
+            numericUpDown2.Location = new Point(52, 15);
+            numericUpDown2.Maximum = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDown2.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDown2.Name = "numericUpDown2";
+            numericUpDown2.Size = new Size(39, 23);
+            numericUpDown2.TabIndex = 3;
+            numericUpDown2.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDown2.ValueChanged += numericUpDown2_ValueChanged;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(15, 17);
+            label2.Name = "label2";
+            label2.Size = new Size(31, 15);
+            label2.TabIndex = 4;
+            label2.Text = "Spot";
+            // 
+            // vScrollBar1
+            // 
+            vScrollBar1.AllowDrop = true;
+            vScrollBar1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            vScrollBar1.Location = new Point(638, 54);
+            vScrollBar1.Name = "vScrollBar1";
+            vScrollBar1.Size = new Size(17, 337);
+            vScrollBar1.TabIndex = 5;
+            vScrollBar1.Scroll += vScrollBar1_Scroll;
+            vScrollBar1.ValueChanged += vScrollBar1_ValueChanged;
+            // 
+            // hScrollBar1
+            // 
+            hScrollBar1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            hScrollBar1.Location = new Point(12, 394);
+            hScrollBar1.Name = "hScrollBar1";
+            hScrollBar1.Size = new Size(623, 17);
+            hScrollBar1.TabIndex = 6;
+            hScrollBar1.Scroll += hScrollBar1_Scroll;
+            hScrollBar1.ValueChanged += hScrollBar1_ValueChanged;
             // 
             // PrintingWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(796, 420);
+            Controls.Add(hScrollBar1);
+            Controls.Add(vScrollBar1);
+            Controls.Add(label2);
+            Controls.Add(numericUpDown2);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "PrintingWindow";
@@ -119,7 +171,9 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -131,5 +185,9 @@
         private Panel panel_Paper;
         private NumericUpDown numericUpDown1;
         private Label label1;
+        private NumericUpDown numericUpDown2;
+        private Label label2;
+        private VScrollBar vScrollBar1;
+        private HScrollBar hScrollBar1;
     }
 }

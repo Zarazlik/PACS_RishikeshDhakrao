@@ -12,6 +12,7 @@ using System.Drawing.Imaging;
 using PACS_RishikeshDhakrao.BackEnd.ImageProcesing;
 using FellowOakDicom;
 using PACS_RishikeshDhakrao.BackEnd.DicomProcessing;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace PACS_RishikeshDhakrao.UI
 {
@@ -19,7 +20,8 @@ namespace PACS_RishikeshDhakrao.UI
     {
         DicomFile dicomFile;
 
-        List<(ImageProcessor, ViewingPanel)> imageProcessors =new List<(ImageProcessor, ViewingPanel)>();
+        List<(ImageProcessor, ViewingPanel)> imageProcessors = new List<(ImageProcessor, ViewingPanel)>();
+        int OpenedProcessor = 0;
 
         public PrintingWindow(DicomFile dicomFile)
         {
@@ -30,8 +32,12 @@ namespace PACS_RishikeshDhakrao.UI
 
         private void PrintingWindow_Load(object sender, EventArgs e)
         {
+            panel1.MouseWheel += Panel1_MouseWheel;
+
             ChangeSpots();
         }
+
+
 
         void ChangeSpots()
         {
@@ -58,8 +64,13 @@ namespace PACS_RishikeshDhakrao.UI
                 DistributePictureBoxes((int)numericUpDown1.Value, 3);
             }
 
-            imageProcessors[0].Item1.Visible = true;
-            FillImageProcessors(0);
+
+            if (OpenedProcessor >= imageProcessors.Count)
+            {
+                OpenedProcessor = imageProcessors.Count - 1;
+            }
+            imageProcessors[OpenedProcessor].Item1.Visible = true;
+            FillImageProcessors(OpenedProcessor);
 
 
             //---
@@ -89,6 +100,8 @@ namespace PACS_RishikeshDhakrao.UI
                     viewingPanel.Margin = new Padding(marginBetweenPictureBoxes);
                     viewingPanel.Location = new Point(currentX, currentY);
 
+                    viewingPanel.AutoScroll = false;
+
                     panel_Paper.Controls.Add(viewingPanel);
 
                     currentX += pictureBoxWidth + marginBetweenPictureBoxes;
@@ -106,7 +119,8 @@ namespace PACS_RishikeshDhakrao.UI
         {
             ImageProcessor imageProcessor = new ImageProcessor();
             this.Controls.Add(imageProcessor);
-            imageProcessor.Location = new Point(0, 0);
+            imageProcessor.Location = new Point(110, 5);
+            imageProcessor.Size = new Size(Width - 110, Height);
             imageProcessor.Visible = false;
 
             imageProcessors.Add((imageProcessor, viewingPanel));
@@ -116,10 +130,10 @@ namespace PACS_RishikeshDhakrao.UI
 
         void FillImageProcessors(int count)
         {
-            for (int i = 0;  i < numericUpDown1.Value; i++) 
+            for (int i = 0; i < numericUpDown1.Value; i++)
             {
                 try
-                { 
+                {
                     imageProcessors[i].Item1.SetNewImage(DicomRequester.OpenImage(dicomFile, i + count));
                 }
                 catch
@@ -155,6 +169,95 @@ namespace PACS_RishikeshDhakrao.UI
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             ChangeSpots();
+            numericUpDown2.Maximum = numericUpDown1.Value;
         }
+
+        private void numericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+            imageProcessors[OpenedProcessor].Item1.Visible = false;
+            OpenedProcessor = (int)(numericUpDown2.Value - 1);
+            imageProcessors[OpenedProcessor].Item1.Visible = true;
+        }
+
+        private void panel1_SizeChanged(object sender, EventArgs e)
+        {
+            if (panel_Paper.Width > panel1.Width)
+            {
+                hScrollBar1.Visible = true;
+                hScrollBar1.Maximum = (panel_Paper.Width - panel1.Width) / 10;
+
+            }
+            else
+            {
+                hScrollBar1.Value = 0;
+                hScrollBar1.Visible = false;
+            }
+
+            if (panel_Paper.Height > panel1.Height)
+            {
+                vScrollBar1.Visible = true;
+                vScrollBar1.Maximum = (panel_Paper.Height - panel1.Height) / 10;
+            }
+            else
+            {
+                vScrollBar1.Value = 0;
+                vScrollBar1.Visible = false;
+            }
+        }
+
+        private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+            ChanegePaperLocation();
+        }
+
+        private void vScrollBar1_ValueChanged(object sender, EventArgs e)
+        {
+            ChanegePaperLocation();
+        }
+
+        private void hScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+            ChanegePaperLocation();
+        }
+
+        private void hScrollBar1_ValueChanged(object sender, EventArgs e)
+        {
+            ChanegePaperLocation();
+        }
+
+        void ChanegePaperLocation()
+        {
+            panel_Paper.Location = new Point(-hScrollBar1.Value * 10, -vScrollBar1.Value * 10);
+        }
+
+        private void Panel1_MouseWheel(object? sender, MouseEventArgs e)
+        {
+            if ((ModifierKeys & Keys.Control) != Keys.Control)
+            {
+                if (e.Delta > 0)
+                {
+                    if (vScrollBar1.Value - 3 < vScrollBar1.Minimum)
+                    {
+                        vScrollBar1.Value = vScrollBar1.Minimum;
+                    }
+                    else
+                    {
+                        vScrollBar1.Value -= 3;
+                    }
+                }
+                else
+                {
+                    if (vScrollBar1.Value + 3 > vScrollBar1.Maximum)
+                    {
+                        vScrollBar1.Value = vScrollBar1.Maximum;
+                    }
+                    else
+                    {
+                        vScrollBar1.Value += 3;
+                    }
+                }
+            }
+        }
+
     }
 }

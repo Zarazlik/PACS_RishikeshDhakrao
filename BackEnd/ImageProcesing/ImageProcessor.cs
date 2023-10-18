@@ -199,8 +199,11 @@ namespace PACS_RishikeshDhakrao.BackEnd.ImageProcesing
                     ZoomFactor = _zoomFactor - 0.05f;
                 }
 
-                viewingPanel.AutoScroll = true;
-                viewingPanel.AutoScrollPosition = new Point(Math.Abs(autoscrollBufer.X), Math.Abs(autoscrollBufer.Y));
+                if (_autoScrollMode)
+                {
+                    viewingPanel.AutoScroll = true;
+                    viewingPanel.AutoScrollPosition = new Point(Math.Abs(autoscrollBufer.X), Math.Abs(autoscrollBufer.Y));
+                }
             }
         }
 
